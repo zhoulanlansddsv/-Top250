@@ -4,7 +4,7 @@
 1.自己下一个pycharm，配置requirement.txt里的库，这样跑得起来，版本随意
 
 2.下sql，记得自己的密码和账号，下navicat这是网上找的链接https://pan.quark.cn/s/187970a62ba9，有可能爬着爬着封ip了，可以开热点电脑就又可以爬了
-  做了一下，发现连sql比较麻烦，就做了excel表，凑合看吧
+  做了一下，发现连sql比较麻烦，就做了excel表，凑合看吧，爬一下就好了爬多了会重复
 
 3.下载安装包，解压后，放入配置的pycharm，打开spider_templeData.py，生成了我们要的数据
 
