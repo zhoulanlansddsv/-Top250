@@ -1,0 +1,779 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="referrer" content="non-referrer"/>
+
+  <title>豆瓣电影系统</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" >
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url_for('index') }}">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">豆瓣电影系统 <sup>2</sup></div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item ">
+        <a class="nav-link" href="/index">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>首页</span></a>
+
+      </li>
+        <li class="nav-item ">
+        <a class="nav-link" href="/search/1">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>搜索</span></a>
+
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        数据表
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+
+
+        <li class="nav-item ">
+        <a class="nav-link" href="/time_t">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>时间分析表</span></a>
+
+      </li>
+        <li class="nav-item ">
+        <a class="nav-link" href="/rate/all">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>评分分析表</span></a>
+
+      </li>
+        </li>
+        <li class="nav-item active">
+        <a class="nav-link" href="/map_t">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>地图,类型和导演分析表</span></a>
+
+      </li>
+
+        <li class="nav-item ">
+        <a class="nav-link" href="/wordcloud_t">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>词云图</span></a>
+
+      </li>
+      <!-- Nav Item - Utilities Collapse Menu -->
+
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+
+
+      <!-- Nav Item - Pages Collapse Menu -->
+
+
+      <!-- Nav Item - Charts -->
+
+
+      <!-- Nav Item - Tables -->
+
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <!-- Topbar Search -->
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Welcome, {{ session.get('user_name', 'Guest') }}</span>
+
+              </a>
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Settings
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Activity Log
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ url_for('logout') }}">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Content Row -->
+
+
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-8">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">电影制片国家统计图</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div id="main" style="width:100%;height:450px" >
+
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Pie Chart -->
+ <div class="col-xl-12 col-lg-8">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">电影类型统计图</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div id="mains" style="width:100%;height:450px" >
+
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+               <div class="col-xl-12 col-lg-8">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">导演电影数量统计图</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div id="mainss" style="width:100%;height:450px" >
+
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <!-- /.container-fluid -->
+
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <span>豆瓣电影数据可视化分析<a target="_blank" href="http://sc.chinaz.com/moban/">Flask+Mysql+Echarts</a></span>
+
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/static/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/static/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="/static/vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="/static/js/demo/chart-area-demo.js"></script>
+  <script src="/static/js/demo/chart-pie-demo.js"></script>
+  <script src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="/static/js/demo/datatables-demo.js"></script>
+  <script src="/static/js/echarts.js"></script>
+<!--<script>-->
+<!--    var chartDom = document.getElementById('main');-->
+<!--var myChart = echarts.init(chartDom);-->
+<!--var option;-->
+
+<!--option = {-->
+<!--  tooltip: {-->
+<!--    trigger: 'axis',-->
+<!--    axisPointer: {-->
+<!--      type: 'shadow'-->
+<!--    }-->
+<!--  },-->
+<!--  xAxis: {-->
+<!--    type: 'category',-->
+<!--    data: {{row}}-->
+<!--  },-->
+<!--  yAxis: {-->
+<!--    type: 'value'-->
+<!--  },-->
+<!--  series: [-->
+<!--    {-->
+<!--      data: {{columns}},-->
+<!--      type: 'bar'-->
+<!--    }-->
+<!--  ]-->
+<!--};-->
+
+<!--option && myChart.setOption(option);-->
+<!--</script>-->
+<script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+
+// 安全地获取数据
+var countryData = {{ row | tojson }};
+var countData = {{ columns | tojson }};
+
+console.log('国家数据:', countryData);
+console.log('数量数据:', countData);
+
+// 检查数据是否有效
+if (!Array.isArray(countryData) || !Array.isArray(countData) ||
+    countryData.length === 0 || countData.length === 0 ||
+    countryData.length !== countData.length) {
+
+    // 如果没有数据，显示提示信息
+    chartDom.innerHTML = '<div style="text-align:center;padding-top:200px;color:#999;">暂无国家统计数据</div>';
+    console.warn('地图数据无效:', {countryData, countData});
+} else {
+    option = {
+        title: {
+            text: '电影制片国家统计',
+            subtext: '数据来源于豆瓣',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            },
+            formatter: function(params) {
+                return '国家: ' + params[0].name + '<br/>电影数量: ' + params[0].value;
+            }
+        },
+        xAxis: {
+            type: 'category',
+            name: '国家',
+            data: countryData,
+            axisLabel: {
+                rotate: 45,  // 倾斜45度显示
+                interval: 0  // 显示所有标签
+            }
+        },
+        yAxis: {
+            type: 'value',
+            name: '电影数量'
+        },
+        series: [{
+            name: '电影数量',
+            type: 'bar',
+            data: countData,
+            itemStyle: {
+                color: function(params) {
+                    // 根据数量设置不同颜色
+                    var colorList = [
+                        '#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae',
+                        '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570'
+                    ];
+                    return colorList[params.dataIndex % colorList.length];
+                }
+            },
+            label: {
+                show: true,
+                position: 'top',
+                formatter: '{c}'
+            }
+        }],
+        dataZoom: [{
+            type: 'inside',
+            start: 0,
+            end: 100
+        }, {
+            start: 0,
+            end: 100,
+            handleSize: '80%',
+            handleStyle: {
+                color: '#fff',
+                shadowBlur: 3,
+                shadowColor: 'rgba(0, 0, 0, 0.6)',
+                shadowOffsetX: 2,
+                shadowOffsetY: 2
+            }
+        }]
+    };
+
+    option && myChart.setOption(option);
+
+    // 响应窗口大小变化
+    window.addEventListener('resize', function() {
+        myChart.resize();
+    });
+}
+<!--</script>-->
+<!--<script>-->
+<!--    var chartDom = document.getElementById('mains');-->
+<!--var myChart = echarts.init(chartDom);-->
+<!--var option;-->
+
+<!--option = {-->
+<!--  tooltip: {-->
+<!--    trigger: 'item'-->
+<!--  },-->
+<!--  legend: {-->
+<!--    top: '5%',-->
+<!--    left: 'center'-->
+<!--  },-->
+<!--  series: [-->
+<!--    {-->
+<!--      name: 'Access From',-->
+<!--      type: 'pie',-->
+<!--      radius: ['40%', '70%'],-->
+<!--      avoidLabelOverlap: false,-->
+<!--      label: {-->
+<!--        show: false,-->
+<!--        position: 'center'-->
+<!--      },-->
+<!--      emphasis: {-->
+<!--        label: {-->
+<!--          show: true,-->
+<!--          fontSize: 40,-->
+<!--          fontWeight: 'bold'-->
+<!--        }-->
+<!--      },-->
+<!--      labelLine: {-->
+<!--        show: false-->
+<!--      },-->
+<!--      data: [{'name': '美国', 'value': 141}, {'name': '中国大陆', 'value': 24},-->
+<!--     {'name': '中国香港', 'value': 30}, {'name': '墨西哥', 'value': 1},-->
+<!--     {'name': '日本', 'value': 36}, {'name': '意大利', 'value': 9},-->
+<!--     {'name': '英国', 'value': 39}, {'name': '加拿大', 'value': 8},-->
+<!--      {'name': '法国', 'value': 19}, {'name': '印度', 'value': 2},-->
+<!--      {'name': '瑞士', 'value': 3}, {'name': '德国', 'value': 11},-->
+<!--      {'name': '韩国', 'value': 12}, {'name': '新西兰', 'value': 3},-->
+<!--       {'name': '中国台湾', 'value': 9}, {'name': '波兰', 'value': 1},-->
+<!--       {'name': '黎巴嫩', 'value': 1}, {'name': '塞浦路斯', 'value': 1},-->
+<!--       {'name': '卡塔尔', 'value': 1},-->
+<!--        {'name': '西班牙', 'value': 3}, {'name': '伊朗', 'value': 1},-->
+<!--        {'name': '丹麦', 'value': 1}, {'name': '瑞典', 'value': 2},-->
+<!--         {'name': '奥地利', 'value': 1}, {'name': '巴西', 'value': 2},-->
+<!--          {'name': '澳大利亚', 'value': 4}, {'name': '希腊', 'value': 1},-->
+<!--           {'name': '南非', 'value': 1}, {'name': '阿根廷', 'value': 1},-->
+<!--           {'name': '泰国', 'value': 1}, {'name': '匈牙利', 'value': 1},-->
+<!--            {'name': '约旦', 'value': 1}, {'name': '爱尔兰', 'value': 1}]-->
+<!--    }-->
+<!--  ]-->
+<!--};-->
+
+<!--option && myChart.setOption(option);-->
+<!--</script>-->
+<script>
+    var chartDom = document.getElementById('mains');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        legend: {
+            top: '5%',
+            left: 'center',
+            type: 'scroll'  // 如果图例太多可以滚动
+        },
+        series: [
+            {
+                name: '电影制片国家',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                center: ['50%', '60%'],  // 调整中心位置，为标签留出空间
+                avoidLabelOverlap: true,  // 防止标签重叠
+                itemStyle: {
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
+                label: {
+                    show: true,
+                    position: 'outside',  // 标签显示在外部
+                    formatter: '{b}: {c} ({d}%)',
+                    fontSize: 12
+                },
+                labelLine: {
+                    show: true,  // 显示引导线
+                    length: 15,  // 第一段引导线长度
+                    length2: 20  // 第二段引导线长度
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: 16,
+                        fontWeight: 'bold'
+                    },
+                    scale: true,
+                    scaleSize: 5
+                },
+                data: [
+                    {'name': '美国', 'value': 141}, {'name': '中国大陆', 'value': 24},
+                    {'name': '中国香港', 'value': 30}, {'name': '墨西哥', 'value': 1},
+                    {'name': '日本', 'value': 36}, {'name': '意大利', 'value': 9},
+                    {'name': '英国', 'value': 39}, {'name': '加拿大', 'value': 8},
+                    {'name': '法国', 'value': 19}, {'name': '印度', 'value': 2},
+                    {'name': '瑞士', 'value': 3}, {'name': '德国', 'value': 11},
+                    {'name': '韩国', 'value': 12}, {'name': '新西兰', 'value': 3},
+                    {'name': '中国台湾', 'value': 9}, {'name': '波兰', 'value': 1},
+                    {'name': '黎巴嫩', 'value': 1}, {'name': '塞浦路斯', 'value': 1},
+                    {'name': '卡塔尔', 'value': 1}, {'name': '西班牙', 'value': 3},
+                    {'name': '伊朗', 'value': 1}, {'name': '丹麦', 'value': 1},
+                    {'name': '瑞典', 'value': 2}, {'name': '奥地利', 'value': 1},
+                    {'name': '巴西', 'value': 2}, {'name': '澳大利亚', 'value': 4},
+                    {'name': '希腊', 'value': 1}, {'name': '南非', 'value': 1},
+                    {'name': '阿根廷', 'value': 1}, {'name': '泰国', 'value': 1},
+                    {'name': '匈牙利', 'value': 1}, {'name': '约旦', 'value': 1},
+                    {'name': '爱尔兰', 'value': 1}
+                ]
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+</script>
+<!--<script>-->
+<!--<script>-->
+<!--var chartDom = document.getElementById('mainss');-->
+<!--var myChart = echarts.init(chartDom);-->
+<!--var option;-->
+
+<!--// 安全地获取数据-->
+<!--var countryData = ['宫崎骏 Hayao Miyazaki', '克里斯托弗·诺兰 Christopher Nolan', '史蒂文·斯皮尔伯格 Steven Spielberg', '李安 Ang Lee', '彼特·道格特 Pete Docter', '大卫·芬奇 David Fincher', '王家卫 Kar Wai Wong', '今敏 Satoshi Kon', '是枝裕和 Hirokazu Koreeda', '詹姆斯·卡梅隆 James Cameron', '朱塞佩·托纳多雷 Giuseppe Tornatore', '刘镇伟 Jeffrey Lau', '弗朗西斯·福特·科波拉 Francis Ford Coppola', '彼得·杰克逊 Peter Jackson', '姜文 Wen Jiang', '大卫·叶茨 David Yates', '昆汀·塔伦蒂诺 Quentin Tarantino', '理查德·林克莱特 Richard Linklater', '弗兰克·德拉邦特 Frank Darabont', '彼得·威尔 Peter Weir', '李·昂克里奇 Lee Unkrich', 'Chris Columbus', '张艺谋 Yimou Zhang', '罗伯·莱纳 Rob Reiner', '周星驰 Stephen Chow', '李力持 Lik-Chi Lee', '查理·卓别林 Charles Chaplin', '杨德昌 Edward Yang', '奉俊昊 Joon-ho Bong', '王树忱 Shuchen Wang', '中岛哲也 Tetsuya Nakashima', '蒂姆·波顿 Tim Burton', '梅尔·吉布森 Mel Gibson', '理查德·柯蒂斯 Richard Curtis', '森淳一 Junichi Mori', '黑泽明 Akira Kurosawa', '拉娜·沃卓斯基 Lana Wachowski', '莉莉·沃卓斯基 Lilly Wachowski', '保罗·格林格拉斯 Paul Greengrass', '雷德利·斯科特 Ridley Scott', '谢晋 Jin Xie', '吴宇森 John Woo', '达米恩·查泽雷 Damien Chazelle', '安德鲁·尼科尔 Andrew Niccol', '陈凯歌 Kaige Chen', '罗伯特·泽米吉斯 Robert Zemeckis', '罗伯托·贝尼尼 Roberto Benigni', '吕克·贝松 Luc Besson', '莱塞·霍尔斯道姆 Lasse Hallström', '拜伦·霍华德 Byron Howard', '瑞奇·摩尔 Rich Moore', '拉库马·希拉尼 Rajkumar Hirani', '安德鲁·斯坦顿 Andrew Stanton', '克里斯托夫·巴拉蒂 Christophe Barratier', '刘伟强', '麦兆辉', '比利·怀尔德 Billy Wilder', '黄东赫 Dong-hyuk Hwang', '奥利维·那卡什 Olivier Nakache', '艾力克·托兰达 Eric Toledano', '阿德里安·莫利纳 Adrian Molina', '加布里尔·穆奇诺 Gabriele Muccino', '贝纳尔多·贝托鲁奇 Bernardo Bertolucci', '文牧野 Muye Wen', '维克多·弗莱明 Victor Fleming', '乔治·库克 George Cukor', '鲍勃·彼德森 Bob Peterson', '西德尼·吕美特 Sidney Lumet', '李濬益 Jun-ik Lee', '阿兰·葛斯彭纳 Alain Gsponer', '涅提·蒂瓦里 Nitesh Tiwari', '罗曼·波兰斯基 Roman Polanski', '娜丁·拉巴基 Nadine Labaki', '马丁·布莱斯 Martin Brest', '彼得·法雷里 Peter Farrelly', '万籁鸣 Laiming Wan', '安迪·沃卓斯基 Andy Wachowski', '拉娜·沃卓斯基 Lana Wachowski', '威廉·惠勒 William Wyler', 'Roger Allers', '罗伯·明可夫 Rob Minkoff', '杨宇硕 Woo-seok Yang', '朗·霍华德 Ron Howard', '马克·赫尔曼 Mark Herman', '岩井俊二 Shunji Iwai', '盖·里奇 Guy Ritchie', '弗洛里安·亨克尔·冯·多纳斯马尔克 Florian Henckel von Donnersmarck', '罗伯特·怀斯 Robert Wise', '阿方索·卡隆 Alfonso Cuarón', '奥里奥尔·保罗 Oriol Paulo', '乔纳森·戴米 Jonathan Demme', '马基德·马基迪 Majid Majidi', '米洛斯·福尔曼 Miloš Forman', '韦斯·安德森 Wes Anderson', '埃里克·布雷斯 Eric Bress', 'J·麦基·格鲁伯 J. Mackye Gruber', 'Martin Scorsese', '格斯·范·桑特 Gus Van Sant', '托尼·凯耶 Tony Kaye', '宝拉·柯特莱西 Paola Cortellesi', '詹姆斯·曼高德 James Mangold', '路易·西霍尤斯 Louie Psihoyos', '戈尔·维宾斯基 Gore Verbinski', '赛尔乔·莱翁内 Sergio Leone', '托马斯·温特伯格 Thomas Vinterberg', '陈可辛 Peter Chan', '钱运达 Yunda Qian', '李焕庆 Hwan-kyeong Lee', '唐·霍尔 Don Hall', '克里斯·威廉姆斯 Chris Williams', 'M·奈特·沙马兰 M. Night Shyamalan', '谢添 Tian Xie', '迈克·内威尔 Mike Newell', '泷田洋二郎 Yôjirô Takita', '米林宏昌 Hiromasa Yonebayashi', '罗纳尔多·德尔·卡门 Ronaldo Del Carmen', '北野武 Takeshi Kitano', '程小东 Siu-Tung Ching', '迪恩·德布洛斯 Dean DeBlois', '克里斯·桑德斯 Chris Sanders', '乔·怀特 Joe Wright', '朴勋政 Hoon-jung Park', '克林特·伊斯特伍德 Clint Eastwood', '汉内斯·赫尔姆 Hannes Holm', '让-皮埃尔·热内 Jean-Pierre Jeunet', '大卫·斯沃曼 David Silverman', '近藤喜文 Yoshifumi Kondo', '卢卡·瓜达尼诺 Luca Guadagnino', '严定宪 Dingxian Yan', '王晶 Jing Wong', '延尚昊 Sang-ho Yeon', '皮艾尔·柯芬 Pierre Coffin', '克里斯·雷纳德 Chris Renaud', '大森贵弘 Takahiro Omori', '亚当·艾略特 Adam Elliot', '莫滕·泰杜姆 Morten Tyldum', '阿尔弗雷德·希区柯克 Alfred Hitchcock', '新海诚 Makoto Shinkai', '杰茜·尼尔森 Jessie Nelson', '黄建新 Jianxin Huang', '杨亚洲 Yazhou Yang', '姜炯哲 Hyeong-Cheol Kang', '凯普·鲍尔斯 Kemp Powers', '金秉祐 Byeong-woo Kim', '詹姆斯·温 James Wan', '托德·菲利普斯 Todd Phillips', '马丁·麦克唐纳 Martin McDonagh', '让-马克·瓦雷 Jean-Marc Vallée', '科克·德·米科 Kirk De Micco', '克里斯·桑德斯 Chris Sanders', '刘伟强 Andrew Lau', '麦兆辉 Alan Mak', '宁浩 Hao Ning', '费尔南多·梅里尔斯 Fernando Meirelles', '卡迪亚·兰德 Kátia Lund', '斯坦利·多南 Stanley Donen', '吉恩·凯利 Gene Kelly', '斯坦利·库布里克 Stanley Kubrick', '忻钰坤 Yukun Xin', '巴勃罗·贝格尔 Pablo Berger', '特瑞·乔治 Terry George', '瑞奇·莫尔 Rich Moore', '克里斯托弗·史密斯 Christopher Smith', '卡洛斯·沙尔丹哈 Carlos Saldanha', '克里斯·韦奇 Chris Wedge', '罗启锐 Alex Law', '神山征二郎 Seijirô Kôyama', '达米安·斯兹弗隆 Damián Szifron', '黄信尧 Hsin-yao Huang', '邓肯·琼斯 Duncan Jones', '乔治·米勒 George Miller', '丹尼·鲍尔 Danny Boyle', '洛芙琳·坦丹 Loveleen Tandan', '藤森雅也 Masaya Fujimori', '土井裕泰 Nobuhiro Doi', '陆川 Chuan Lu', '布莱恩·辛格 Bryan Singer', '本·斯蒂勒 Ben Stiller', '徐克 Hark Tsui', '达伦·阿罗诺夫斯基 Darren Aronofsky', '普特鹏·普罗萨卡·那·萨克那卡林 Puttipong Promsaka Na Sakolnakorn', '华森·波克彭...', '李惠民 Raymond Lee', '巴瑞·莱文森 Barry Levinson', '杰拉尔·乌里 Gérard Oury', '尼克·卡索维茨 Nick Cassavetes', '詹姆斯·沃德·布柯特 James Ward Byrkit', '肯尼斯·罗纳根 Kenneth Lonergan', '斯蒂芬·卓博斯基 Stephen Chbosky', '高畑勋 Isao Takahata', '鲍勃·佩尔西凯蒂 Bob Persichetti', '彼得·拉姆齐 Peter Ramsey', '押井守 Mamoru Oshii', '克里斯·巴克 Chris Buck', '珍妮弗·李 Jennifer Lee', '爱德华·兹威克 Edward Zwick', '茂文·勒鲁瓦 Mervyn LeRoy', '伦尼·阿伯拉罕森 Lenny Abrahamson', '特奥多尔·梅尔菲 Theodore Melfi', '朴赞郁 Chan-wook Park'];-->
+<!--var countData = [8, 6, 6, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];-->
+
+<!--console.log('国家数据:', countryData);-->
+<!--console.log('数量数据:', countData);-->
+
+<!--// 检查数据是否有效-->
+<!--if (!Array.isArray(countryData) || !Array.isArray(countData) ||-->
+<!--    countryData.length === 0 || countData.length === 0 ||-->
+<!--    countryData.length !== countData.length) {-->
+
+<!--    // 如果没有数据，显示提示信息-->
+<!--    chartDom.innerHTML = '<div style="text-align:center;padding-top:200px;color:#999;">暂无国家统计数据</div>';-->
+<!--    console.warn('地图数据无效:', {countryData, countData});-->
+<!--} else {-->
+<!--    option = {-->
+<!--        title: {-->
+<!--            text: '电影制片国家统计',-->
+<!--            subtext: '数据来源于豆瓣',-->
+<!--            left: 'center'-->
+<!--        },-->
+<!--        tooltip: {-->
+<!--            trigger: 'axis',-->
+<!--            axisPointer: {-->
+<!--                type: 'shadow'-->
+<!--            },-->
+<!--            formatter: function(params) {-->
+<!--                return '国家: ' + params[0].name + '<br/>电影数量: ' + params[0].value;-->
+<!--            }-->
+<!--        },-->
+<!--        xAxis: {-->
+<!--            type: 'category',-->
+<!--            name: '国家',-->
+<!--            data: countryData,-->
+<!--            axisLabel: {-->
+<!--                rotate: 45,  // 倾斜45度显示-->
+<!--                interval: 0  // 显示所有标签-->
+<!--            }-->
+<!--        },-->
+<!--        yAxis: {-->
+<!--            type: 'value',-->
+<!--            name: '电影数量'-->
+<!--        },-->
+<!--        series: [{-->
+<!--            name: '电影数量',-->
+<!--            type: 'bar',-->
+<!--            data: countData,-->
+<!--            itemStyle: {-->
+<!--                color: function(params) {-->
+<!--                    // 根据数量设置不同颜色-->
+<!--                    var colorList = [-->
+<!--                        '#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae',-->
+<!--                        '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570'-->
+<!--                    ];-->
+<!--                    return colorList[params.dataIndex % colorList.length];-->
+<!--                }-->
+<!--            },-->
+<!--            label: {-->
+<!--                show: true,-->
+<!--                position: 'top',-->
+<!--                formatter: '{c}'-->
+<!--            }-->
+<!--        }],-->
+<!--        dataZoom: [{-->
+<!--            type: 'inside',-->
+<!--            start: 0,-->
+<!--            end: 100-->
+<!--        }, {-->
+<!--            start: 0,-->
+<!--            end: 100,-->
+<!--            handleSize: '80%',-->
+<!--            handleStyle: {-->
+<!--                color: '#fff',-->
+<!--                shadowBlur: 3,-->
+<!--                shadowColor: 'rgba(0, 0, 0, 0.6)',-->
+<!--                shadowOffsetX: 2,-->
+<!--                shadowOffsetY: 2-->
+<!--            }-->
+<!--        }]-->
+<!--    };-->
+
+<!--    option && myChart.setOption(option);-->
+
+<!--    // 响应窗口大小变化-->
+<!--    window.addEventListener('resize', function() {-->
+<!--        myChart.resize();-->
+<!--    });-->
+<!--}-->
+<!--&lt;!&ndash;</script>&ndash;&gt;-->
+<!--</script>-->
+<script>
+var chartDom = document.getElementById('mainss');
+var myChart = echarts.init(chartDom);
+var option;
+
+// 原始数据
+var directorData = ['宫崎骏 Hayao Miyazaki', '克里斯托弗·诺兰 Christopher Nolan', '史蒂文·斯皮尔伯格 Steven Spielberg', '李安 Ang Lee', '彼特·道格特 Pete Docter', '大卫·芬奇 David Fincher', '王家卫 Kar Wai Wong', '今敏 Satoshi Kon', '是枝裕和 Hirokazu Koreeda', '詹姆斯·卡梅隆 James Cameron', '朱塞佩·托纳多雷 Giuseppe Tornatore', '刘镇伟 Jeffrey Lau', '弗朗西斯·福特·科波拉 Francis Ford Coppola', '彼得·杰克逊 Peter Jackson', '姜文 Wen Jiang', '大卫·叶茨 David Yates', '昆汀·塔伦蒂诺 Quentin Tarantino', '理查德·林克莱特 Richard Linklater', '弗兰克·德拉邦特 Frank Darabont', '彼得·威尔 Peter Weir', '李·昂克里奇 Lee Unkrich', 'Chris Columbus', '张艺谋 Yimou Zhang', '罗伯·莱纳 Rob Reiner', '周星驰 Stephen Chow', '李力持 Lik-Chi Lee', '查理·卓别林 Charles Chaplin', '杨德昌 Edward Yang', '奉俊昊 Joon-ho Bong', '王树忱 Shuchen Wang', '中岛哲也 Tetsuya Nakashima', '蒂姆·波顿 Tim Burton', '梅尔·吉布森 Mel Gibson', '理查德·柯蒂斯 Richard Curtis', '森淳一 Junichi Mori', '黑泽明 Akira Kurosawa', '拉娜·沃卓斯基 Lana Wachowski', '莉莉·沃卓斯基 Lilly Wachowski', '保罗·格林格拉斯 Paul Greengrass', '雷德利·斯科特 Ridley Scott', '谢晋 Jin Xie', '吴宇森 John Woo', '达米恩·查泽雷 Damien Chazelle', '安德鲁·尼科尔 Andrew Niccol', '陈凯歌 Kaige Chen', '罗伯特·泽米吉斯 Robert Zemeckis', '罗伯托·贝尼尼 Roberto Benigni', '吕克·贝松 Luc Besson', '莱塞·霍尔斯道姆 Lasse Hallström', '拜伦·霍华德 Byron Howard', '瑞奇·摩尔 Rich Moore', '拉库马·希拉尼 Rajkumar Hirani', '安德鲁·斯坦顿 Andrew Stanton', '克里斯托夫·巴拉蒂 Christophe Barratier', '刘伟强', '麦兆辉', '比利·怀尔德 Billy Wilder', '黄东赫 Dong-hyuk Hwang', '奥利维·那卡什 Olivier Nakache', '艾力克·托兰达 Eric Toledano', '阿德里安·莫利纳 Adrian Molina', '加布里尔·穆奇诺 Gabriele Muccino', '贝纳尔多·贝托鲁奇 Bernardo Bertolucci', '文牧野 Muye Wen', '维克多·弗莱明 Victor Fleming', '乔治·库克 George Cukor', '鲍勃·彼德森 Bob Peterson', '西德尼·吕美特 Sidney Lumet', '李濬益 Jun-ik Lee', '阿兰·葛斯彭纳 Alain Gsponer', '涅提·蒂瓦里 Nitesh Tiwari', '罗曼·波兰斯基 Roman Polanski', '娜丁·拉巴基 Nadine Labaki', '马丁·布莱斯 Martin Brest', '彼得·法雷里 Peter Farrelly', '万籁鸣 Laiming Wan', '安迪·沃卓斯基 Andy Wachowski', '拉娜·沃卓斯基 Lana Wachowski', '威廉·惠勒 William Wyler', 'Roger Allers', '罗伯·明可夫 Rob Minkoff', '杨宇硕 Woo-seok Yang', '朗·霍华德 Ron Howard', '马克·赫尔曼 Mark Herman', '岩井俊二 Shunji Iwai', '盖·里奇 Guy Ritchie', '弗洛里安·亨克尔·冯·多纳斯马尔克 Florian Henckel von Donnersmarck', '罗伯特·怀斯 Robert Wise', '阿方索·卡隆 Alfonso Cuarón', '奥里奥尔·保罗 Oriol Paulo', '乔纳森·戴米 Jonathan Demme', '马基德·马基迪 Majid Majidi', '米洛斯·福尔曼 Miloš Forman', '韦斯·安德森 Wes Anderson', '埃里克·布雷斯 Eric Bress', 'J·麦基·格鲁伯 J. Mackye Gruber', 'Martin Scorsese', '格斯·范·桑特 Gus Van Sant', '托尼·凯耶 Tony Kaye', '宝拉·柯特莱西 Paola Cortellesi', '詹姆斯·曼高德 James Mangold', '路易·西霍尤斯 Louie Psihoyos', '戈尔·维宾斯基 Gore Verbinski', '赛尔乔·莱翁内 Sergio Leone', '托马斯·温特伯格 Thomas Vinterberg', '陈可辛 Peter Chan', '钱运达 Yunda Qian', '李焕庆 Hwan-kyeong Lee', '唐·霍尔 Don Hall', '克里斯·威廉姆斯 Chris Williams', 'M·奈特·沙马兰 M. Night Shyamalan', '谢添 Tian Xie', '迈克·内威尔 Mike Newell', '泷田洋二郎 Yôjirô Takita', '米林宏昌 Hiromasa Yonebayashi', '罗纳尔多·德尔·卡门 Ronaldo Del Carmen', '北野武 Takeshi Kitano', '程小东 Siu-Tung Ching', '迪恩·德布洛斯 Dean DeBlois', '克里斯·桑德斯 Chris Sanders', '乔·怀特 Joe Wright', '朴勋政 Hoon-jung Park', '克林特·伊斯特伍德 Clint Eastwood', '汉内斯·赫尔姆 Hannes Holm', '让-皮埃尔·热内 Jean-Pierre Jeunet', '大卫·斯沃曼 David Silverman', '近藤喜文 Yoshifumi Kondo', '卢卡·瓜达尼诺 Luca Guadagnino', '严定宪 Dingxian Yan', '王晶 Jing Wong', '延尚昊 Sang-ho Yeon', '皮艾尔·柯芬 Pierre Coffin', '克里斯·雷纳德 Chris Renaud', '大森贵弘 Takahiro Omori', '亚当·艾略特 Adam Elliot', '莫滕·泰杜姆 Morten Tyldum', '阿尔弗雷德·希区柯克 Alfred Hitchcock', '新海诚 Makoto Shinkai', '杰茜·尼尔森 Jessie Nelson', '黄建新 Jianxin Huang', '杨亚洲 Yazhou Yang', '姜炯哲 Hyeong-Cheol Kang', '凯普·鲍尔斯 Kemp Powers', '金秉祐 Byeong-woo Kim', '詹姆斯·温 James Wan', '托德·菲利普斯 Todd Phillips', '马丁·麦克唐纳 Martin McDonagh', '让-马克·瓦雷 Jean-Marc Vallée', '科克·德·米科 Kirk De Micco', '克里斯·桑德斯 Chris Sanders', '刘伟强 Andrew Lau', '麦兆辉 Alan Mak', '宁浩 Hao Ning', '费尔南多·梅里尔斯 Fernando Meirelles', '卡迪亚·兰德 Kátia Lund', '斯坦利·多南 Stanley Donen', '吉恩·凯利 Gene Kelly', '斯坦利·库布里克 Stanley Kubrick', '忻钰坤 Yukun Xin', '巴勃罗·贝格尔 Pablo Berger', '特瑞·乔治 Terry George', '瑞奇·莫尔 Rich Moore', '克里斯托弗·史密斯 Christopher Smith', '卡洛斯·沙尔丹哈 Carlos Saldanha', '克里斯·韦奇 Chris Wedge', '罗启锐 Alex Law', '神山征二郎 Seijirô Kôyama', '达米安·斯兹弗隆 Damián Szifron', '黄信尧 Hsin-yao Huang', '邓肯·琼斯 Duncan Jones', '乔治·米勒 George Miller', '丹尼·鲍尔 Danny Boyle', '洛芙琳·坦丹 Loveleen Tandan', '藤森雅也 Masaya Fujimori', '土井裕泰 Nobuhiro Doi', '陆川 Chuan Lu', '布莱恩·辛格 Bryan Singer', '本·斯蒂勒 Ben Stiller', '徐克 Hark Tsui', '达伦·阿罗诺夫斯基 Darren Aronofsky', '普特鹏·普罗萨卡·那·萨克那卡林 Puttipong Promsaka Na Sakolnakorn', '华森·波克彭...', '李惠民 Raymond Lee', '巴瑞·莱文森 Barry Levinson', '杰拉尔·乌里 Gérard Oury', '尼克·卡索维茨 Nick Cassavetes', '詹姆斯·沃德·布柯特 James Ward Byrkit', '肯尼斯·罗纳根 Kenneth Lonergan', '斯蒂芬·卓博斯基 Stephen Chbosky', '高畑勋 Isao Takahata', '鲍勃·佩尔西凯蒂 Bob Persichetti', '彼得·拉姆齐 Peter Ramsey', '押井守 Mamoru Oshii', '克里斯·巴克 Chris Buck', '珍妮弗·李 Jennifer Lee', '爱德华·兹威克 Edward Zwick', '茂文·勒鲁瓦 Mervyn LeRoy', '伦尼·阿伯拉罕森 Lenny Abrahamson', '特奥多尔·梅尔菲 Theodore Melfi', '朴赞郁 Chan-wook Park'];
+var countData = [8, 6, 6, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+// 只显示前15位导演
+var showCount = 15;
+var showDirectors = directorData.slice(0, showCount);
+var showCounts = countData.slice(0, showCount);
+
+console.log('显示的导演数据:', showDirectors);
+console.log('显示的数量数据:', showCounts);
+
+// 检查数据是否有效
+if (!Array.isArray(showDirectors) || !Array.isArray(showCounts) ||
+    showDirectors.length === 0 || showCounts.length === 0) {
+
+    chartDom.innerHTML = '<div style="text-align:center;padding-top:200px;color:#999;">暂无导演统计数据</div>';
+} else {
+    option = {
+        title: {
+            text: '导演电影数量统计（前15位）',
+            subtext: '数据来源于豆瓣',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            },
+            formatter: function(params) {
+                return '导演: ' + params[0].name + '<br/>电影数量: ' + params[0].value;
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '15%',  // 为X轴标签留出更多空间
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            name: '导演',
+            data: showDirectors,
+            axisLabel: {
+                rotate: 45,  // 倾斜45度显示
+                interval: 0,  // 显示所有标签
+                fontSize: 10,
+                margin: 10
+            }
+        },
+        yAxis: {
+            type: 'value',
+            name: '电影数量'
+        },
+        series: [{
+            name: '电影数量',
+            type: 'bar',
+            data: showCounts,
+            itemStyle: {
+                color: function(params) {
+                    var colorList = [
+                        '#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae',
+                        '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570'
+                    ];
+                    return colorList[params.dataIndex % colorList.length];
+                }
+            },
+            label: {
+                show: true,
+                position: 'top',
+                formatter: '{c}'
+            }
+        }]
+    };
+
+    option && myChart.setOption(option);
+
+    // 响应窗口大小变化
+    window.addEventListener('resize', function() {
+        myChart.resize();
+    });
+}
+</script>
+</body>
+
+</html>

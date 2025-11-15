@@ -1,0 +1,190 @@
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .auth-wrapper {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 420px;
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .login-title {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .login-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+        .form-control:focus {
+            border-color: #f6d365;
+            box-shadow: 0 0 0 0.2rem rgba(246, 211, 101, 0.25);
+        }
+        .btn-primary {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .btn-google {
+            border: 1px solid #ddd;
+            background: white;
+            color: #444;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .btn-google:hover {
+            background: #f8f9fa;
+            border-color: #ccc;
+        }
+        .btn-facebook {
+            background: #1877f2;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .btn-facebook:hover {
+            background: #166fe5;
+            transform: translateY(-2px);
+        }
+        .form-check-input:checked {
+            background-color: #f6d365;
+            border-color: #f6d365;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #666;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        .divider::before {
+            margin-right: .5em;
+        }
+        .divider::after {
+            margin-left: .5em;
+        }
+        .alert {
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-wrapper">
+        <div class="login-header">
+            <h3 class="login-title">Welcome Back!</h3>
+            <p class="login-subtitle">Please sign in to your account</p>
+        </div>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('login') }}">
+            <!-- Email Input -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email Address..." required>
+            </div>
+
+            <!-- Password Input -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+            </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="remember">
+                    <label class="form-check-label" for="remember">Remember Me</label>
+                </div>
+                <a href="#" class="text-decoration-none">Forget Password?</a>
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+
+            <!-- Divider -->
+            <div class="divider">Or continue with</div>
+
+            <!-- Social Login Buttons -->
+            <div class="row g-2 mb-4">
+                <div class="col-6">
+                    <button type="button" class="btn btn-google w-100">
+                        <i class="material-icons align-middle me-2">account_circle</i>
+                        Google
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-facebook w-100">
+                        <i class="material-icons align-middle me-2">thumb_up</i>
+                        Facebook
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sign Up Link -->
+            <div class="text-center">
+                <span>Don't have an account? </span>
+                <a href="{{ url_for('register') }}" class="text-decoration-none fw-bold">Create an Account!</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
